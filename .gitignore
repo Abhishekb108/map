@@ -1,0 +1,7 @@
+Ignore node_modules in subdirectories
+
+node_modules/
+
+Ignore build folders
+
+build/
