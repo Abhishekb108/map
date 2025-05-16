@@ -1,0 +1,407 @@
+/* Reset and base styles */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Roboto', Arial, sans-serif;
+}
+
+/* Main container */
+.map-page {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+}
+
+/* Header/logo section */
+.header {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  z-index: 900;
+  display: flex;
+  align-items: center;
+}
+
+.header h2 {
+  display: none; /* Hide the text heading since we have the logo */
+}
+
+/* Logo styling */
+.logo {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  background-color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.logo img {
+  width: 40px;
+  height: 40px;
+}
+
+/* User profile button */
+.user-profile {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  z-index: 900;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background-color: #001c55;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 20px;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  border: none;
+}
+
+/* History sidebar and button */
+.history-btn {
+  position: absolute;
+  top: 120px;
+  left: 20px;
+  z-index: 900;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background-color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  border: none;
+}
+
+.history-sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 300px;
+  height: 100vh;
+  background-color: #fff;
+  z-index: 1000;
+  padding: 20px;
+  box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+  overflow-y: auto;
+  transition: transform 0.3s ease;
+  transform: translateX(-100%);
+}
+
+.history-sidebar.show {
+  transform: translateX(0);
+}
+
+.history-sidebar .history-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #eee;
+}
+
+.history-sidebar h3 {
+  font-size: 20px;
+  color: #333;
+}
+
+.history-sidebar .close-history {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 20px;
+  color: #666;
+}
+
+.history-sidebar ul {
+  list-style: none;
+  padding: 0;
+}
+
+.history-sidebar li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 0;
+  border-bottom: 1px solid #eee;
+}
+
+.history-sidebar li span {
+  cursor: pointer;
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding-right: 10px;
+}
+
+.history-sidebar li .location-info {
+  display: flex;
+  align-items: flex-start;
+}
+
+.history-sidebar li .location-icon {
+  margin-right: 10px;
+  color: #001c55;
+  font-size: 18px;
+  margin-top: 2px;
+}
+
+.history-sidebar li .address-details {
+  flex: 1;
+  overflow: hidden;
+}
+
+.history-sidebar li .address {
+  font-weight: 500;
+  margin-bottom: 4px;
+  color: #333;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.history-sidebar li .timestamp {
+  font-size: 12px;
+  color: #888;
+}
+
+.delete-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #ff4444;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 5px;
+}
+
+.delete-btn:hover {
+  color: #cc0000;
+}
+
+/* Search bar container */
+.search-bar {
+  position: absolute;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 900;
+  display: flex;
+  width: 60%;
+  max-width: 600px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  border-radius: 4px;
+}
+
+.search-wrapper {
+  position: relative;
+  flex: 1;
+}
+
+.search-bar input {
+  width: 100%;
+  padding: 15px 40px 15px 40px;
+  border: none;
+  border-radius: 4px 0 0 4px;
+  outline: none;
+  font-size: 15px;
+}
+
+.search-icon {
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #666;
+  font-size: 18px;
+}
+
+.clear-btn {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #666;
+  font-size: 14px;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background-color: #f0f0f0;
+}
+
+.clear-btn:hover {
+  background-color: #e0e0e0;
+}
+
+.search-bar button[type="submit"] {
+  padding: 0 25px;
+  background-color: #001c55;
+  color: white;
+  border: none;
+  border-radius: 0 4px 4px 0;
+  cursor: pointer;
+  font-weight: 500;
+  font-size: 15px;
+}
+
+.search-bar button[type="submit"]:hover {
+  background-color: #001540;
+}
+
+/* Search suggestions */
+.suggestions {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background-color: white;
+  border-radius: 0 0 4px 4px;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  max-height: 300px;
+  overflow-y: auto;
+  z-index: 1000;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.suggestions li {
+  padding: 12px 15px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+
+.suggestions li:hover {
+  background-color: #f5f5f5;
+}
+
+.suggestions li .suggestion-icon {
+  margin-right: 10px;
+  color: #666;
+  font-size: 16px;
+}
+
+.suggestions li .home-icon {
+  color: #001c55;
+}
+
+/* Map container */
+.map-container {
+  width: 100%;
+  height: 100vh;
+}
+
+/* Logout button */
+.logout-btn {
+  display: none; /* We'll handle this in the user profile dropdown */
+}
+
+/* Map container size adjustment */
+.leaflet-container {
+  width: 100% !important;
+  height: 100vh !important;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .search-bar {
+    width: 90%;
+    top: 90px;
+  }
+  
+  .header {
+    top: 15px;
+    left: 15px;
+  }
+  
+  .logo {
+    width: 60px;
+    height: 60px;
+  }
+  
+  .logo img {
+    width: 35px;
+    height: 35px;
+  }
+  
+  .user-profile {
+    top: 15px;
+    right: 15px;
+    width: 45px;
+    height: 45px;
+  }
+  
+  .history-btn {
+    top: 90px;
+    left: 15px;
+    width: 45px;
+    height: 45px;
+  }
+  
+  .history-sidebar {
+    width: 280px;
+  }
+}
+
+@media (max-width: 480px) {
+  .search-bar {
+    width: 95%;
+    top: 80px;
+  }
+  
+  .search-bar input {
+    padding: 12px 35px 12px 35px;
+  }
+  
+  .search-bar button[type="submit"] {
+    padding: 0 15px;
+  }
+  
+  .logo {
+    width: 50px;
+    height: 50px;
+  }
+  
+  .logo img {
+    width: 30px;
+    height: 30px;
+  }
+  
+  .user-profile {
+    width: 40px;
+    height: 40px;
+  }
+  
+  .history-btn {
+    width: 40px;
+    height: 40px;
+  }
+  
+  .history-sidebar {
+    width: 100%;
+  }
+}
