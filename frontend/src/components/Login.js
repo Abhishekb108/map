@@ -22,7 +22,7 @@ const Login = () => {
     }
     
     try {
-      const response = await axios.post('http://localhost:5000/api/auth/login', {
+      const response = await axios.post('https://map-seven-orpin.vercel.app/api/auth/login', {
         email,
         password,
       });
@@ -39,7 +39,7 @@ const Login = () => {
       const idToken = await result.user.getIdToken();
       
       // Send the Google ID token to the backend
-      const response = await axios.post('http://localhost:5000/api/auth/google-login', {
+      const response = await axios.post('https://map-seven-orpin.vercel.app/api/auth/google-login', {
         idToken,
       });
       localStorage.setItem('token', response.data.token);

@@ -13,7 +13,7 @@ const ResetPassword = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post(`http://localhost:5000/api/password-reset/reset/${token}`, { password });
+      const response = await axios.post(`https://map-seven-orpin.vercel.app/api/password-reset/reset/${token}`, { password });
       setMessage(response.data.message);
       setError('');
       setTimeout(() => navigate('/'), 2000); // Redirect to login after 2 seconds

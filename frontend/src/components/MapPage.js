@@ -37,7 +37,7 @@ const MapPage = () => {
     const fetchHistory = async () => {
       try {
         const token = localStorage.getItem('token');
-        const response = await axios.get('http://localhost:5000/api/search', {
+        const response = await axios.get('https://map-seven-orpin.vercel.app/api/search', {
           headers: { Authorization: `Bearer ${token}` },
         });
         setHistory(response.data);
@@ -107,13 +107,13 @@ const MapPage = () => {
         // Save search history to backend
         const token = localStorage.getItem('token');
         await axios.post(
-          'http://localhost:5000/api/search',
+          'https://map-seven-orpin.vercel.app/api/search',
           { address: display_name, latitude: lat, longitude: lon },
           { headers: { Authorization: `Bearer ${token}` } }
         );
 
         // Refresh history after new search
-        const historyResponse = await axios.get('http://localhost:5000/api/search', {
+        const historyResponse = await axios.get('https://map-seven-orpin.vercel.app/api/search', {
           headers: { Authorization: `Bearer ${token}` },
         });
         setHistory(historyResponse.data);
@@ -143,7 +143,7 @@ const MapPage = () => {
   const handleDeleteHistory = async (index) => {
     try {
       const token = localStorage.getItem('token');
-      const response = await axios.delete(`http://localhost:5000/api/search/${index}`, {
+      const response = await axios.delete(`https://map-seven-orpin.vercel.app/api/search/${index}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       setHistory(response.data);

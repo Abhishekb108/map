@@ -10,7 +10,7 @@ const ForgotPassword = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('http://localhost:5000/api/password-reset/request', { email });
+      const response = await axios.post('https://map-seven-orpin.vercel.app/api/password-reset/request', { email });
       setMessage(response.data.message);
       setError('');
     } catch (err) {
