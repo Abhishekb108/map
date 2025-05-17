@@ -4,6 +4,8 @@ const User = require('../models/User');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 const axios = require('axios');
+const { OAuth2Client } = require('google-auth-library');
+const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
 
 // Register
 router.post('/register', async (req, res) => {
@@ -42,14 +44,49 @@ router.post('/login', async (req, res) => {
 });
 
 // Google Login
+// router.post('/google-login', async (req, res) => {
+//   const { idToken } = req.body;
+//   try {
+//     // Verify the Google ID token
+//     const response = await axios.get(
+//       `https://www.googleapis.com/oauth2/v3/tokeninfo?id_token=${idToken}`
+//     );
+//     const { email, sub: googleId } = response.data;
+
+//     if (!email) {
+//       return res.status(400).json({ message: 'Google login failed: No email provided' });
+//     }
+
+//     // Check if user exists, if not create a new one
+//     let user = await User.findOne({ email });
+//     if (!user) {
+//       user = new User({
+//         email,
+//         password: 'google-sign-in-' + googleId, // Dummy password for Google users
+//       });
+//       await user.save();
+//     }
+
+//     // Generate JWT for our app
+//     const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, { expiresIn: '1h' });
+//     res.json({ token });
+//   } catch (err) {
+//     console.error('Google login error:', err);
+//     res.status(500).json({ message: 'Google login failed' });
+//   }
+// });
+
 router.post('/google-login', async (req, res) => {
   const { idToken } = req.body;
   try {
     // Verify the Google ID token
-    const response = await axios.get(
-      `https://www.googleapis.com/oauth2/v3/tokeninfo?id_token=${idToken}`
-    );
-    const { email, sub: googleId } = response.data;
+    const ticket = await client.verifyIdToken({
+      idToken,
+      audience: process.env.GOOGLE_CLIENT_ID,
+    });
+
+    const payload = ticket.getPayload();
+    const { email, sub: googleId } = payload;
 
     if (!email) {
       return res.status(400).json({ message: 'Google login failed: No email provided' });
@@ -60,12 +97,12 @@ router.post('/google-login', async (req, res) => {
     if (!user) {
       user = new User({
         email,
-        password: 'google-sign-in-' + googleId, // Dummy password for Google users
+        password: 'google-sign-in-' + googleId, // Dummy password
       });
       await user.save();
     }
 
-    // Generate JWT for our app
+    // Generate JWT
     const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, { expiresIn: '1h' });
     res.json({ token });
   } catch (err) {
